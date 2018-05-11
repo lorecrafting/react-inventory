@@ -22,7 +22,7 @@ let newId = 4
 
 export const getItemsFromFakeXHR = () => new Promise((resolve, reject) => {
   setTimeout( () => {
-    resolve(itemsFromFakeDB)
+    resolve(itemsFromFakeDB.slice())
   }, 500)
 })
 
@@ -31,6 +31,7 @@ export const addItemToFakeXHR = (item) => new Promise((resolve, reject) => {
     item.id = newId;
     newId++;
     itemsFromFakeDB.push(item);
+    console.log('itemFromFakeDB', itemsFromFakeDB)
     resolve(itemsFromFakeDB)
   },500)
 })
