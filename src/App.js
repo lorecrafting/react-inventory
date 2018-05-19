@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getItemsFromFakeXHR, addItemToFakeXHR } from './db/inventory.db';
+// import { getItemsFromFakeXHR, addItemToFakeXHR } from './db/inventory.db';
+import { getAllItems } from './actions/actions.js'
 import ItemForm from './ItemForm';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import { connect } from 'react-redux';
 
 class App extends Component {
   constructor(props) {
@@ -10,45 +13,39 @@ class App extends Component {
     this.state = {
       items: []
     }
-    this.addItem = this.addItem.bind(this);
+    // this.addItem = this.addItem.bind(this);
   }
 
   componentDidMount() {
-    getItemsFromFakeXHR()
-    .then( items => {
-      this.setState({ items }, () => {
-      })
-    })
-    
+    // getItemsFromFakeXHR()
+    // .then( items => {
+    //   this.setState({ items }, () => {
+    //   })
+    // })
+    this.props.getAllItems()
+
   }
 
-  addItem(item) {
-    addItemToFakeXHR(item)
-    .then( ({ items }) => {
-      this.setState({ items })
-    })
-  }
-
-  // renderListOfItems() {
-  //   return this.state.items.map( item => <div>{item.name}</div>)
-  // }
+  // addItem(item) {
+  // //   addItemToFakeXHR(item)
+  // //   .then( ({ items }) => {
+  // //     this.setState({ items })
+  // //   })
+  // // }
 
   render() {
-    const { items } = this.state
+    const { items } = this.props
 
     return (
       <Router>
         <div className="App">
           <header className="App-header">
-          <Link to="/"><h1 className="App-title">Character</h1></Link>
-          <Link to="/inventory"><h1 className="App-title">Inventory</h1></Link>
-          <Link to="/quests"><h1 className="App-title">Quests</h1></Link>
-            
-            
-            
+            <Link to="/"><h1 className="App-title">Character</h1></Link>
+            <Link to="/inventory"><h1 className="App-title">Inventory</h1></Link>
+            <Link to="/quests"><h1 className="App-title">Quests</h1></Link>
           </header>
-          <Route exact={true} path="/" component={CharacterContainer} />
-          <Route path="/inventory" component={ () => <InventoryContainer items={items} addItem={this.addItem}/>   } />
+          <Route path="/" component={CharacterContainer} />
+          <Route path="/inventory" component={ () => <InventoryContainer items={items}/> } />
           <Route path="/quests" component={QuestContainer} />
         </div>
       </Router>
@@ -56,13 +53,12 @@ class App extends Component {
   }
 }
 
-
-
 function InventoryContainer(props) {
   return (
     <div>
         <ItemsList items={props.items}/>
-        <ItemForm addItem={props.addItem}/>
+        {/* <ItemForm addItem={props.addItem}/> */}
+        <ItemForm />
     </div>
   )
 }
@@ -83,6 +79,12 @@ function QuestContainer(props) {
   )
 }
 
+const mapStateToProps = storeState => ({ items: storeState})
 
+// const mapDispatchToProps = dispatch => ({
+//   getAllItems: () => dispatch(getAllItems())
+// });
 
-export default App;
+const ConnectedApp = connect(mapStateToProps, { getAllItems })(App);
+
+export default ConnectedApp;

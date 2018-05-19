@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { format } from 'path';
 
+import { connect } from 'react-redux';
+import { addItem } from './actions/actions.js';
+
+
 class ItemForm extends Component {
   constructor(props) {
     super(props)
@@ -50,4 +54,10 @@ class ItemForm extends Component {
   }
 }
 
-export default ItemForm
+const mapDispatchToProps = dispatch => ({
+  addItem: (item) => dispatch(addItem(item))
+});
+
+const connectedApp = connect(null, mapDispatchToProps)(ItemForm)
+
+export default connectedApp
