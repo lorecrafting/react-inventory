@@ -22,12 +22,9 @@ class ItemForm extends Component {
     const target = e.target
     const value = target.value;
     const name = target.name;
-    console.log('value', value)
-    console.log('name', name)
     this.setState( {
       [name] : value
     }, () => {
-      console.log('state', this.state)
     })
   }
 

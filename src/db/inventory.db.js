@@ -31,8 +31,7 @@ export const addItemToFakeXHR = (item) => new Promise((resolve, reject) => {
     item.id = newId;
     newId++;
     itemsFromFakeDB.push(item);
-    console.log('itemFromFakeDB', itemsFromFakeDB)
-    resolve(itemsFromFakeDB)
+    resolve({items: itemsFromFakeDB})
   },500)
 })
 
