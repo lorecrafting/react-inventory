@@ -19,7 +19,6 @@ class App extends Component {
       this.setState({ items }, () => {
       })
     })
-    
   }
 
   addItem(item) {
@@ -40,14 +39,12 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
-          <Link to="/"><h1 className="App-title">Character</h1></Link>
-          <Link to="/inventory"><h1 className="App-title">Inventory</h1></Link>
-          <Link to="/quests"><h1 className="App-title">Quests</h1></Link>
-            
-            
-            
+            <Link to="/"><h1 className="App-title">Character</h1></Link>
+            <Link to="/inventory"><h1 className="App-title">Inventory</h1></Link>
+            <Link to="/quests"><h1 className="App-title">Quests</h1></Link>
           </header>
-          <Route exact={true} path="/" component={CharacterContainer} />
+
+          <Route path="/" component={CharacterContainer} />
           <Route path="/inventory" component={ () => <InventoryContainer items={items} addItem={this.addItem}/>   } />
           <Route path="/quests" component={QuestContainer} />
         </div>
