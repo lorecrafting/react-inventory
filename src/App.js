@@ -44,8 +44,9 @@ class App extends Component {
             <Link to="/inventory"><h1 className="App-title">Inventory</h1></Link>
             <Link to="/quests"><h1 className="App-title">Quests</h1></Link>
           </header>
+
           <Route path="/" component={CharacterContainer} />
-          <Route path="/inventory" component={ () => <InventoryContainer items={items}/> } />
+          <Route path="/inventory" component={ () => <InventoryContainer items={items} addItem={this.addItem}/>   } />
           <Route path="/quests" component={QuestContainer} />
         </div>
       </Router>

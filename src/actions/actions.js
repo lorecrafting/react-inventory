@@ -26,10 +26,3 @@ export function getAllItems() {
       })
   }
 }
-
-export function makeLotsOfFlashyThingsInUI(message) {
-  return {
-    type: 'MAKE_THE_FLASH',
-    data: message
-  }
-}
