@@ -1,4 +1,4 @@
-const itemsFromFakeDB = [{
+let itemsFromFakeDB = [{
     id: 1,
     name: 'A Large Healing Potion',
     weight: 0.1,
@@ -42,4 +42,20 @@ export const getItemByIdFromFakeXHR = (itemId) => new Promise( (resolve, reject)
     if (itemResponse) resolve(itemResponse);
     else reject({status: 404, message: 'item not found'})
   }, 500)
+})
+
+export const deleteItemByIdFromFakeXHR = (itemId) => new Promise ( (resolve, reject) => {
+  setTimeout( () => {
+    const itemIdx = itemsFromFakeDB.findIndex( item => item.id === itemId);
+    if (itemIdx === -1) {
+      reject({status: 500, message: 'item not found'})
+    } else {
+      itemsFromFakeDB = itemsFromFakeDB.filter( item => {
+        return item.id !== itemId
+      })
+      console.log('itemsFromFakeDB', itemsFromFakeDB)
+      console.log('itemIdx', itemIdx)
+      resolve({status: 'ok'})
+    }
+  })
 })
