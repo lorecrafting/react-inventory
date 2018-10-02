@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getItemsFromFakeXHR, addItemToFakeXHR } from './db/inventory.db';
+import { getItemsFromFakeXHR, addItemToFakeXHR, deleteItemById } from './db/inventory.db';
 import ItemForm from './ItemForm';
 
 class App extends Component {
@@ -10,15 +10,21 @@ class App extends Component {
       items: []
     }
     this.addItem = this.addItem.bind(this);
+    this.updateStateFromDb = this.updateStateFromDb.bind(this);
+    this.deleteItemById = this.deleteItemById.bind(this);
   }
 
   componentDidMount() {
+    this.updateStateFromDb()
+  }
+
+  updateStateFromDb() {
     getItemsFromFakeXHR()
-    .then( items => {
-      this.setState({ items }, () => {
-        console.log('this.state', this.state)
+      .then( items => {
+        this.setState({items}, () => {
+          console.log('this.state', this.state)
+        })
       })
-    })
   }
 
   addItem(item) {
@@ -28,8 +34,12 @@ class App extends Component {
     })
   }
 
-  renderListOfItems() {
-    return this.state.items.map( item => <div>{item.name}</div>)
+  deleteItemById(itemId) {
+    console.log('BALETED')
+    deleteItemById(itemId)
+    .then( result => {
+      this.updateStateFromDb()
+    })
   }
 
   render() {
@@ -40,7 +50,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">You peek into your inventory and see:</h1>
         </header>
-        <ItemsList items={items}/>
+        <ItemsList deleteItemById={this.deleteItemById} items={items}/>
         <ItemForm addItem={this.addItem}/>
       </div>
     );
@@ -48,7 +58,7 @@ class App extends Component {
 }
 
 function ItemsList(props) {
-  return props.items.map( item => <div>{item.name}</div>)
+  return props.items.map( item => <div onClick={ () => props.deleteItemById(item.id)}>{item.name}</div>)
 }
 
 
