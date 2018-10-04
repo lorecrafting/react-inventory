@@ -44,11 +44,7 @@ export const getItemByIdFromFakeXHR = (itemId) => new Promise( (resolve, reject)
   }, 500)
 })
 
-<<<<<<< HEAD
 export const deleteItemByIdFromFakeXHR = (itemId) => new Promise ( (resolve, reject) => {
-=======
-export const deleteItemById = (itemId) => new Promise ( (resolve, reject) => {
->>>>>>> ef57447b29b6babd6802cdc57f154ef94aa7dc28
   setTimeout( () => {
     const itemIdx = itemsFromFakeDB.findIndex( item => item.id === itemId);
     if (itemIdx === -1) {
