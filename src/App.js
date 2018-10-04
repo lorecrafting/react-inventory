@@ -50,7 +50,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">You peek into your inventory and see:</h1>
         </header>
-        <ItemsList deleteItemById={this.deleteItemByIdFrom} items={items}/>
+        <ItemsList deleteItemById={this.deleteItemById} items={items}/>
         <ItemForm addItem={this.addItem}/>
       </div>
     );
