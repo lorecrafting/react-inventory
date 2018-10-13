@@ -25,7 +25,7 @@ class App extends Component {
     axios
       .get('/items')
       .then( items => {
-        console.log("items", items)
+        console.log("items from axios request", items)
         this.setState({items: items.data})
       })
       .catch( err => {
@@ -34,8 +34,6 @@ class App extends Component {
   }
 
   render() {
-
-    console.log('this.state.count', this.state.count)
     return (
      <Router>
       <div className="App">
