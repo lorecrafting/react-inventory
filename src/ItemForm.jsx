@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { addItem } from './actions/actions.js';
+import { connect } from 'react-redux';
 
 class ItemForm extends Component {
   constructor(props) {
     super(props)
-    this.state ={
+    this.state = {
       name: null,
       weight: null,
       type: null
@@ -12,8 +14,8 @@ class ItemForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('SUBMITTED!!!!', this.state)
-    this.props.addItem(this.state)
+    console.log('SUBMITTED!!!!', this.state);
+    this.props.dispatch(addItem(this.state));
   }
 
   handleChange = (e) => {
@@ -48,4 +50,4 @@ class ItemForm extends Component {
 
 }
 
-export default ItemForm
+export default connect()(ItemForm)
